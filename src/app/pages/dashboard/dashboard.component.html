@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+<div class="page-body-wrapper">
+    <app-sidebar
+        (checkFilter)="checkFilter($event)"
+    ></app-sidebar>
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <app-search-bar 
+                #search
+                (clear)="clearItems($event)"
+            ></app-search-bar>
+
+            <ng-container *ngIf="loading === true">
+                cargando información....  <i class="fa fa-spinner fa-spin"></i>
+            </ng-container>
+
+            <app-categories
+                *ngIf="loading === false && categories.length > 0 && itemData === undefined"
+                (category)="getItemCategories($event)"
+                [datas]="categories"
+            ></app-categories>
+
+            <app-catalog
+                [data]="itemData"
+                [category]="val.category"
+                (clearItems)="clearItems($event)"
+                (pageSelect)="pageSelect($event)"
+                *ngIf="loading === false && itemData !== undefined"
+            ></app-catalog>
+            
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

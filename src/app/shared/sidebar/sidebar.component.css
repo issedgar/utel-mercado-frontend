@@ -1,0 +1,20 @@
+.cursor {
+    cursor: pointer;
+}
+
+/* style for off-canvas menu*/
+
+@media screen and (max-width: 991px) {
+    .sidebar-offcanvas {
+        position: fixed;
+        max-height: calc(100vh - 63px);
+        top: 63px;
+        bottom: 0;
+        overflow: auto;
+        right: -270px;
+        transition: all 0.25s ease-out;
+    }
+    .sidebar-offcanvas.active {
+        right: 0;
+    }
+}

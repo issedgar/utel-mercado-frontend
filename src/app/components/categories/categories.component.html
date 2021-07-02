@@ -1,0 +1,9 @@
+<div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4">
+    <div class="col" *ngFor="let item of datas">
+
+        <button type="button" class="btn btn-out-primary" (click)="loadItems( item.id )">
+            <app-card [data]="item"></app-card>
+        </button>
+        
+    </div>    
+</div>

@@ -1,0 +1,56 @@
+<nav class="sidebar sidebar-offcanvas">
+    <ul class="nav">
+        <li class="nav-item nav-profile">
+            <div class="nav-link">
+
+                <div class="user-wrapper">
+                    <div class="profile-image">
+                        <img src="assets/images/faces/face1.jpg" alt="profile image">
+                    </div>
+
+                    <div class="text-wrapper">
+                        <p class="profile-name">UTEL - test</p>
+                        <div>
+                            <small class="designation text-muted">frontend - angular</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </li>
+
+        <ng-container *ngIf="filters && filters.length > 0">
+            <ng-container *ngFor="let filter of filters">
+                <li class="nav-item">
+                    <a (click)="closeSidebar()" 
+                        data-bs-toggle="collapse" 
+                        class="nav-link" 
+                        href="#collapseExample" 
+                        role="button" 
+                        aria-expanded="false" aria-controls="collapseExample">
+                        <i class="menu-icon fa fa-filter"></i>
+                        <span class="menu-title">{{ filter.name }}</span>
+                    </a>
+                </li>
+                <div class="collapse show" id="collapseExample">
+                    <div class="card card-body">
+                        <div class="list-group">
+                            <label class="list-group-item" *ngFor="let value of filter.values">
+                                <input 
+                                    class="form-check-input me-1" 
+                                    type="checkbox" 
+                                    [value]="filter.id + '=' + value.id"
+                                    [(ngModel)]="value.checked"
+                                    (change)="changeStatus($event)"
+                                    >
+                                <h6 class="mb-1">{{ value.name }}</h6>
+                                
+                            </label>
+                        </div>
+                    </div>
+                </div>  
+
+            </ng-container>
+        </ng-container>
+    </ul>
+</nav>

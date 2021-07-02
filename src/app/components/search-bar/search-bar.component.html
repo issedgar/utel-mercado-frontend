@@ -1,0 +1,41 @@
+
+<div class="row">
+<div class="col-12 col-lg-4">
+    <div class="form-group">
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="button" [disabled]="true"><i class="fas fa-sort"></i>Ordenar x precio</button>
+            </div>
+            <select 
+                class="form-control"
+                #orderItem="ngModel" 
+                [disabled]="disabledSort"
+                [(ngModel)]="sort"  >
+                <option value="">Seleccionar ...</option>
+                <option value="price_asc">De menor a mayor</option>
+                <option value="price_desc">De mayor a menor</option>
+            </select>
+        </div>        
+    </div>
+</div>
+
+<div class="col-12 col-lg-8">
+    <div class="form-group">
+        <div class="input-group mb-3">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="button" [disabled]="true"><i class="fas fa-search"></i></button>
+            </div>
+            <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="text"  
+                #searchBar="ngModel" 
+                placeholder="Buscar articulo..."
+                >
+            <div class="input-group-append">
+                <button class="btn btn-outline-secundary" (click)="clearItems()" [disabled]="text===''" type="button"><i class="fas fa-times"></i></button>
+            </div>            
+        </div>        
+    </div>
+</div>
+</div>

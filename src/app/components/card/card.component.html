@@ -1,0 +1,28 @@
+<div class="card h-100" *ngIf="data">
+    <img *ngIf="data.id && !data.thumbnail" height="200" src="assets/images/categories/{{ data.id }}.jpg" onerror="this.src='assets/images/categories/NO-IMG2.jpg'" class="card-img-top" alt="...">
+    <img *ngIf="data.thumbnail" height="200" [src]="data.thumbnail" onerror="this.src='assets/images/categories/NO-IMG2.jpg'" class="card-img-top" [alt]="data.title">    
+
+        
+    <div class="card-body">
+        <h5 class="card-title" *ngIf="data.name">{{ data.name }}</h5>
+        <h5 class="card-title" *ngIf="data.title">{{ data.title}}</h5>
+
+        <ul class="list-group" *ngIf="data.title">
+            <li class="list-group-item">Precio: {{ data.price }}</li>
+            <li class="list-group-item">Moneda: {{ data.currency_id }}</li>
+            <li class="list-group-item">Condición: {{ data.condition }}</li>
+            <li class="list-group-item">Disponible: {{ data.available_quantity }}</li>            
+        </ul>
+
+        <ng-container *ngIf="isModal === true">
+            <hr>
+            <button
+                *ngIf="ngbActiveModal"
+                (click)="ngbActiveModal.dismiss()" 
+                type="button"
+                class="btn btn-outline-primary">
+                Cerrar
+            </button>
+        </ng-container>
+    </div>
+</div>

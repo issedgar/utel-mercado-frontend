@@ -1,0 +1,104 @@
+<div class="animate__animated animate__fadeIn animate__faster">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <button type="button" class="btn btn-outline-primary" (click)="clearData()">Categorías</button>
+
+                    
+                    <div class="form-check form-check-inline ml-4">
+                        <input class="form-check-input" type="radio" [(ngModel)]="view" name="inlineRadioOptions" id="inlineRadio1" value="table" checked>
+                        <label class="form-check-label" for="inlineRadio1">Tabla</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" [(ngModel)]="view" name="inlineRadioOptions" id="inlineRadio2" value="card">
+                        <label class="form-check-label" for="inlineRadio2">Tarjeta</label>
+                    </div>
+                    <hr>
+                    <h4 class="card-title animate__animated animate__backInLeft">Productos disponibles</h4>
+
+                    <h4 class="card-title animate__animated animate__backInRight text-text">Productos encontrados: {{ data.paging.total > 30000 ? 30000 : data.paging.total }} </h4> 
+                    <h4 class="card-title animate__animated animate__backInRight text-text">Categoría: {{ category === '' ? 'Todas' : category }} </h4> 
+
+                    
+                    <hr>
+
+                    <ng-container *ngIf="data && data.results && data.results.length === 0">
+                        
+                        <div class="card text-center mx-auto d-block" style="width: 18rem;">
+                            <img src="assets/images/Oops.jpg" class="card-img-top" alt="Sin resultados...">
+                            <div class="card-body">
+                                <h5 class="card-title text-red">no se encontro información con los filtros aplicados ...</h5>
+                            </div>
+                        </div>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="data && data.results && data.results.length > 0">
+                        <ng-container *ngIf="view !== 'table'">
+
+                            <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4 mb-4">
+                                <div class="col" *ngFor="let item of data.results">                                    
+                                    <app-card [data]="item"></app-card>                                    
+                                </div>    
+                            </div>
+
+                        </ng-container>
+                        <ng-container *ngIf="view === 'table'">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Imagen</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Precio</th>
+                                            <th scope="col">Moneda</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Condición</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+        
+                                    <tbody>
+                                        <tr scope="row" *ngFor="let item of data.results">
+                                            <td>
+                                                <div class="profile-image">
+                                                    <img *ngIf="item.thumbnail" [src]="item.thumbnail" [alt]="item.id">
+                                                    <img *ngIf="!item.thumbnail" src="assets/images/categories/NO-IMG.jpg" alt="Sin imagen ...">
+                                                </div>
+                                            </td>
+                                            <td>{{ item.title }}</td>
+                                            <td>{{ item.price }}</td>
+                                            <td>{{ item.currency_id }}</td>
+                                            <td>{{ item.available_quantity }}</td>
+                                            <td>{{ item.condition }}</td>
+                                            <td>
+                                                <button 
+                                                    class="btn btn-outline-primary" 
+                                                    (click)="openModal(item)"
+                                                    title="Consultar">
+                                                    <i class="fa fa-search"></i> Ver
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>        
+                                </table>
+                            </div>
+                        </ng-container>
+
+                        <ngb-pagination 
+                            [collectionSize]="data.paging.total > (data.paging.limit * 1000) ? (data.paging.limit * 1000) : data.paging.total" 
+                            [page]="data.paging.offset + 1" 
+                            [maxSize]="5"
+                            [pageSize]="data.paging.limit"
+                            [boundaryLinks]="true"
+                            (pageChange)="pageChange($event)"
+                            ></ngb-pagination>
+
+                    </ng-container>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
